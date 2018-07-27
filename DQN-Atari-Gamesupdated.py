@@ -246,9 +246,9 @@ for episode in range(nEpisodes):
             current_state = next_state
             
         if max_score<score:
-		pass
-            #print("max score for the episode {} is : {} ".format(episode,score))
-	    #max_score = score
+            print("max score for the episode {} is : {} ".format(episode,score))
+            max_score = score
+            save_model(episode)
 
     if episode%1 == 0:
         print("final score for the episode {} is : {} ".format(episode,score))
