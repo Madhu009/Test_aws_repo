@@ -130,7 +130,7 @@ model = load_model("atari_model25900.h5",custom_objects={'huber_loss': huber_los
 target_model = load_model("atari_model25900.h5",custom_objects={'huber_loss': huber_loss})
 
 nEpisodes = 50000
-total_observe_count = 100
+total_observe_count = 2
 epslion = 0.1
 batch_size = 32
 gamma = 0.99
@@ -138,7 +138,7 @@ final_epsilon = 0.1
 epsilon_step_num = 100000
 epsilon_decay = (1.0 - final_epsilon) / epsilon_step_num
 max_score = 0
-target_model_change = 10
+target_model_change = 5
 
 # In[10]:
 
@@ -248,10 +248,10 @@ for episode in range(nEpisodes):
         if max_score<score:
             print("max score for the episode {} is : {} ".format(episode,score))
             max_score = score
-            save_model(episode)
+            #save_model(episode)
 
     if episode%1 == 0:
         print("final score for the episode {} is : {} ".format(episode,score))
-        save_model(episode)
+        #save_model(episode)
     
 
