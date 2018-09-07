@@ -69,7 +69,7 @@ epsilon_step_num = 20000000
 epsilon_decay = (1.0 - final_epsilon) / epsilon_step_num
 epsilon=1.0
 actions_size =3
-path ="C:/Users/Madhu/Desktop/DeepRL-PG/"
+path =os.getcwd()
 
 def epslion_greedy_policy_action(outputs):
     if np.random.rand()<=epsilon:
@@ -81,11 +81,11 @@ def epslion_greedy_policy_action(outputs):
 def save_tf_model(sess,episode):
     model_name = "PG_Model"+str(episode)
     
-    tf.train.write_graph(sess.graph_def, '.', path+model_name+'.pbtxt')
+    tf.train.write_graph(sess.graph_def, '.',path+"/"+model_name+'.pbtxt')
     print("model protobuf is stored successfully!")
 
     saver = tf.train.Saver()
-    saver.save(sess, path+model_name)
+    saver.save(sess, path+"/"+model_name)
     print("model checkpoint is saved successfully!")
 
 pixels_num = 80*80
@@ -159,7 +159,7 @@ while True:
 
         reward_mean = 0.99*reward_mean+(1-0.99)*(sum(ep_ws))
         rs_sum = tf.Summary(value=[tf.Summary.Value(tag="running_reward", simple_value=reward_mean)])
-        writer.add_summary(rs_sum, global_step=episode_number)
+        #writer.add_summary(rs_sum, global_step=episode_number)
         del ep_ws
         ep_ws = []
         if reward_mean > 20.0:
@@ -198,7 +198,7 @@ while True:
             del batch_y
             del batch_w
             #saver.save(sess, "./log/checkpoints/pg_{}.ckpt".format(step))
-            writer.add_summary(tf_summary, step)
+            #writer.add_summary(tf_summary, step)
 
             if episode_number%50 == 0:
                 print("episode: {}, update step: {}, frame size: {}, reward: {} and epsilon: {}".                    format(episode_number, step, frame_size, reward_mean,epsilon))
